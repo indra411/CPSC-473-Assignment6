@@ -27,10 +27,10 @@ app.use(bodyParser.urlencoded({
 
 var redis = require("redis"),
     client = redis.createClient(),
-    $coinFlips = {} ;
+    $coinFlips = {};
 
-    $coinFlips.wins = 0;
-    $coinFlips.losses = 0;
+$coinFlips.wins = 0;
+$coinFlips.losses = 0;
 
 app.get("/hello", function(req, res) {
     res.send("hello world!");
@@ -54,7 +54,7 @@ app.post("/flip", urlencodedParser, function(req, res) {
         };
         console.log(response);
         res.json(response);
-    } else {       
+    } else {
         client.incr("losses");
 
         console.log("It doesn't match - you loss");
@@ -67,12 +67,12 @@ app.post("/flip", urlencodedParser, function(req, res) {
 });
 
 app.get("/stats", function(req, res) {
-    
+
     client.get('wins', function(err, reply) {
         $coinFlips.wins = reply;
     });
 
-     client.get('losses', function(err, reply) {
+    client.get('losses', function(err, reply) {
         $coinFlips.losses = reply;
     });
 
